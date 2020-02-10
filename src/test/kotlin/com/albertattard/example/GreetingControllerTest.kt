@@ -14,8 +14,8 @@ import io.mockk.verify
 
 @MicronautTest
 class GreetingControllerTest(
-        private val service: GreetingService,
-        @Client("/greeting") private val client: RxHttpClient
+    private val service: GreetingService,
+    @Client("/greeting") private val client: RxHttpClient
 ) : StringSpec({
     "test greeting" {
         val mock = getMock(service)

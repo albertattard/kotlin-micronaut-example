@@ -1,1 +1,1 @@
-rootProject.name="kotlin-micronaut-example"
+rootProject.name = "kotlin-micronaut-example"
