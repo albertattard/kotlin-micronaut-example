@@ -1,3 +1,8 @@
 micronaut:
   application:
     name: kotlin-micronaut-example
+
+endpoints:
+  refresh:
+    enabled: Boolean
+    sensitive: Boolean
