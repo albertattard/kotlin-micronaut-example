@@ -1,4 +1,4 @@
-package com.albertattard.example
+package com.albertattard.example.greeting
 
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller

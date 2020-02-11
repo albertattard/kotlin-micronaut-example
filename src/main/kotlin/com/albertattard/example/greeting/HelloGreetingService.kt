@@ -1,4 +1,4 @@
-package com.albertattard.example
+package com.albertattard.example.greeting
 
 import javax.inject.Singleton
 
@@ -6,5 +6,5 @@ import javax.inject.Singleton
 class HelloGreetingService : GreetingService {
 
     override fun greet() =
-            Greeting("Hello World")
+        Greeting("Hello World")
 }

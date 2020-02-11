@@ -36,6 +36,9 @@ dependencies {
     testImplementation("io.micronaut.test:micronaut-test-kotlintest:1.1.2")
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
+
+    implementation("org.jetbrains.exposed:exposed:0.17.7")
+    implementation("com.h2database:h2:1.4.200")
 }
 
 configurations {

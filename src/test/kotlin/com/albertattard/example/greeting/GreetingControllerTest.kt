@@ -1,4 +1,4 @@
-package com.albertattard.example
+package com.albertattard.example.greeting
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
