@@ -3,8 +3,9 @@ package com.albertattard.example.book
 import javax.inject.Singleton
 
 @Singleton
-class DefaultBookService : BookService {
+@FallbackBookService
+class SecondaryBookService : BookService {
 
     override fun bookOfTheDay() =
-        Book("Hello World")
+        Book("Hello Simple World")
 }

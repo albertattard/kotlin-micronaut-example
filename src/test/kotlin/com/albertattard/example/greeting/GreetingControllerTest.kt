@@ -33,7 +33,7 @@ class GreetingControllerTest(
         confirmVerified(mock)
     }
 }) {
-    @MockBean(HelloGreetingService::class)
+    @MockBean(GreetingService::class)
     fun greetingService(): GreetingService {
         return mockk()
     }

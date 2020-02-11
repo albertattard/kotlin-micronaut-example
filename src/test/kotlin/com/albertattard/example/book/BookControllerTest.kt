@@ -33,7 +33,7 @@ class BookControllerTest(
         confirmVerified(mock)
     }
 }) {
-    @MockBean(DefaultBookService::class)
+    @MockBean(BookService::class)
     fun bookService(): BookService {
         return mockk()
     }
