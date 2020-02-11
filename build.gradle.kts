@@ -24,11 +24,15 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-server-netty")
     implementation("io.micronaut:micronaut-http-client")
+    runtimeOnly("io.micronaut:micronaut-management")
+    runtimeOnly("io.micronaut:micronaut-runtime-osx")
+
     kapt(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     kapt("io.micronaut:micronaut-inject-java")
     kapt("io.micronaut:micronaut-validation")
     kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     kaptTest("io.micronaut:micronaut-inject-java")
+
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.2")
     runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))

@@ -29,7 +29,9 @@
 
     Need to see why this is happening
 
-1. The '/refersh' endpoint is not available
+1. The '/refersh' endpoint is secured
+
+    Need to un secure this endpoint for now
 
 1. Latest version of `kotlintest-runner-junit5` fails with an `initializationError`
 
@@ -40,6 +42,18 @@
     ```
 
     Had to revert to a previous version, `3.4.0` until this is sorted.  The issue seems to be related to JUnit 5 and some swallowed exception.  It seems that some types are missing from the classpath.  Further investigation is required.
+
+1. Need to add custom configurations, such as `developmentOnly`
+
+    ```gradle
+    configurations {
+        developmentOnly
+    }
+    dependencies {
+        developmentOnly "io.micronaut:micronaut-runtime-osx"
+    }
+    run.classpath += configurations.developmentOnly
+    ```
 
 ## Fixed Issues
 
