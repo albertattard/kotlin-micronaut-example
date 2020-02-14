@@ -29,9 +29,36 @@
 
     Need to see why this is happening
 
-1. The '/refersh' endpoint is secured
+1. The `/refresh` endpoint is secured
 
     Need to un secure this endpoint for now
+
+    ```bash
+    $ curl -v -X POST http://localhost:8080/refresh -H 'Content-Type: application/json' -d '{"force": true}' 
+    ```
+    
+    The above should refresh the `@Refreshable` components, but its failing
+    
+    ```bash
+    Note: Unnecessary use of -X or --request, POST is already inferred.
+    *   Trying ::1...
+    * TCP_NODELAY set
+    * Connected to localhost (::1) port 8080 (#0)
+    > POST /refresh HTTP/1.1
+    > Host: localhost:8080
+    > User-Agent: curl/7.64.1
+    > Accept: */*
+    > Content-Type: application/json
+    > Content-Length: 15
+    >
+    * upload completely sent off: 15 out of 15 bytes
+    < HTTP/1.1 401 Unauthorized
+    < Date: Fri, 14 Feb 2020 21:11:20 GMT
+    < transfer-encoding: chunked
+    < connection: close
+    <
+    * Closing connection 0
+    ```
 
 1. Latest version of `kotlintest-runner-junit5` fails with an `initializationError`
 
