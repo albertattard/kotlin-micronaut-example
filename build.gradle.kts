@@ -5,7 +5,7 @@ plugins {
     kotlin("plugin.allopen").version("1.3.61")
 
     id("com.github.johnrengelman.shadow").version("5.2.0")
-    id("org.jlleitschuh.gradle.ktlint").version("9.1.1")
+    id("org.jlleitschuh.gradle.ktlint").version("9.2.1")
     id("com.github.ben-manes.versions").version("0.27.0")
 }
 
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    val micronautVersion = "1.3.0"
+    val micronautVersion = "1.3.1"
     val kotlinVersion = "1.3.61"
 
     implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
@@ -24,8 +24,10 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-server-netty")
     implementation("io.micronaut:micronaut-http-client")
-    runtimeOnly("io.micronaut:micronaut-management")
+    implementation("io.micronaut:micronaut-management")
     runtimeOnly("io.micronaut:micronaut-runtime-osx")
+    runtimeOnly("net.java.dev.jna:jna:5.5.0")
+    runtimeOnly("io.methvin:directory-watcher:0.9.9")
 
     kapt(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     kapt("io.micronaut:micronaut-inject-java")
@@ -37,7 +39,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
 
-    testImplementation("io.micronaut.test:micronaut-test-kotlintest:1.1.2")
+    testImplementation("io.micronaut.test:micronaut-test-kotlintest:1.1.5")
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
 

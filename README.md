@@ -35,9 +35,9 @@
 
     ```bash
     $ curl -v \
-      -X POST http://localhost:8080/refresh \
-      -H 'Content-Type: application/json' \
-      -d '{"force": true}' 
+        http://localhost:8080/refresh \
+        -H 'Content-Type: application/json' \
+        -d '{"force": true}' 
     ```
     
     The above should refresh the `@Refreshable` components, but its failing

@@ -28,6 +28,7 @@ class WeatherControllerTest(
 
         verify(exactly = 1) { mock.latestForecast() }
 
+        verify(exactly = 1) { mock.toString() }
         confirmVerified(mock)
     }
 }) {

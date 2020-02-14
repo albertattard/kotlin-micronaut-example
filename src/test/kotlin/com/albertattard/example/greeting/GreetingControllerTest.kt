@@ -30,6 +30,7 @@ class GreetingControllerTest(
 
         /* TODO: check why this needs to be verified */
         verify(exactly = 2) { mock.hashCode() }
+        verify(exactly = 1) { mock.toString() }
         confirmVerified(mock)
     }
 }) {
