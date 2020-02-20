@@ -1,4 +1,4 @@
-package com.albertattard.example.greeting
+package com.albertattard.example.micronaut.greeting
 
 import javax.inject.Singleton
 

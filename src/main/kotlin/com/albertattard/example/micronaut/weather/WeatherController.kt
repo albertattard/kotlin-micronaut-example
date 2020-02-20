@@ -1,4 +1,4 @@
-package com.albertattard.example.weather
+package com.albertattard.example.micronaut.weather
 
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller

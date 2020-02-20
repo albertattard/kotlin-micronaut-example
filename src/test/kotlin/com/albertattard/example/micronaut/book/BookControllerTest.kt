@@ -1,4 +1,4 @@
-package com.albertattard.example.greeting
+package com.albertattard.example.micronaut.book
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
@@ -13,20 +13,20 @@ import io.mockk.mockk
 import io.mockk.verify
 
 @MicronautTest
-class GreetingControllerTest(
-    private val service: GreetingService,
-    @Client("/greeting") private val client: RxHttpClient
+class BookControllerTest(
+    private val service: BookService,
+    @Client("/book") private val client: RxHttpClient
 ) : StringSpec({
-    "test greeting" {
+    "should return the book provided by the book service" {
         val mock = getMock(service)
 
-        val greeting = Greeting("Hello Micronaut World")
-        every { mock.greet() } returns greeting
+        val bookOfTheDay = Book("Hello Micronaut World")
+        every { mock.bookOfTheDay() } returns bookOfTheDay
 
-        val result = client.toBlocking().retrieve("/", Greeting::class.java)
-        result shouldBe greeting
+        val result = client.toBlocking().retrieve("/", Book::class.java)
+        result shouldBe bookOfTheDay
 
-        verify(exactly = 1) { mock.greet() }
+        verify(exactly = 1) { mock.bookOfTheDay() }
 
         /* TODO: check why this needs to be verified */
         verify(exactly = 2) { mock.hashCode() }
@@ -34,8 +34,8 @@ class GreetingControllerTest(
         confirmVerified(mock)
     }
 }) {
-    @MockBean(GreetingService::class)
-    fun greetingService(): GreetingService {
+    @MockBean(BookService::class)
+    fun bookService(): BookService {
         return mockk()
     }
 }

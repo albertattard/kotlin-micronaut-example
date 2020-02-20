@@ -1,4 +1,4 @@
-package com.albertattard.example.book
+package com.albertattard.example.micronaut.book
 
 interface BookService {
     fun bookOfTheDay(): Book

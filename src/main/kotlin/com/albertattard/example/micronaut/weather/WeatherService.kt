@@ -1,4 +1,4 @@
-package com.albertattard.example.weather
+package com.albertattard.example.micronaut.weather
 
 import io.micronaut.runtime.context.scope.Refreshable
 import java.text.SimpleDateFormat
@@ -11,7 +11,8 @@ class WeatherService {
 
     private val logger = LoggerFactory.getLogger(WeatherService::class.java)
 
-    private var forecast: Forecast = Forecast("Unknown")
+    private var forecast: Forecast =
+        Forecast("Unknown")
 
     @PostConstruct
     fun init() {

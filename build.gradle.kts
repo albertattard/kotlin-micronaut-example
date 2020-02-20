@@ -1,3 +1,6 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     application
     kotlin("jvm").version("1.3.61")
@@ -14,74 +17,79 @@ repositories {
     jcenter()
 }
 
-dependencies {
-    val micronautVersion = "1.3.1"
-    val kotlinVersion = "1.3.61"
-
-    implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    // implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
-    implementation("io.micronaut:micronaut-runtime")
-    implementation("io.micronaut:micronaut-http-server-netty")
-    implementation("io.micronaut:micronaut-http-client")
-    implementation("io.micronaut:micronaut-management")
-    runtimeOnly("io.micronaut:micronaut-runtime-osx")
-    runtimeOnly("net.java.dev.jna:jna:5.5.0")
-    runtimeOnly("io.methvin:directory-watcher:0.9.9")
-
-    kapt(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    kapt("io.micronaut:micronaut-inject-java")
-    kapt("io.micronaut:micronaut-validation")
-    kaptTest(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    kaptTest("io.micronaut:micronaut-inject-java")
-
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.2")
-    runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-
-    testImplementation("io.micronaut.test:micronaut-test-kotlintest:1.1.5")
-    testImplementation("io.mockk:mockk:1.9.3")
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
-
-    implementation("org.jetbrains.exposed:exposed:0.17.7")
-    implementation("com.h2database:h2:1.4.200")
-}
+val developmentOnly: Configuration by configurations.creating
 
 configurations {
     all {
         resolutionStrategy {
+            val ktlint = "0.36.0"
             force(
-                "com.pinterest:ktlint:0.36.0",
-                "com.pinterest.ktlint:ktlint-reporter-checkstyle:0.36.0"
+                "com.pinterest:ktlint:$ktlint",
+                "com.pinterest.ktlint:ktlint-reporter-checkstyle:$ktlint"
             )
         }
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.javaParameters = true
-}
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.javaParameters = true
+    }
 
-tasks.test {
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
+
+    named<ShadowJar>("shadowJar") {
+        mergeServiceFiles()
     }
 }
 
 application {
-    mainClassName = "com.albertattard.example.Application"
+    mainClassName = "com.albertattard.example.micronaut.Application"
 }
 
 allOpen {
     annotation("io.micronaut.aop.Around")
 }
 
-tasks {
-    named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
-        mergeServiceFiles()
-    }
+dependencies {
+    val micronaut = "1.3.1"
+    val jna = "5.5.0"
+    val directoryWatcher = "0.9.9"
+    val kotlintest = "1.1.5"
+    val jacksonModuleKotlin = "2.10.2"
+    val logbackClassic = "1.2.3"
+
+    implementation(platform("io.micronaut:micronaut-bom:$micronaut"))
+    implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-management")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlin")
+    runtimeOnly("ch.qos.logback:logback-classic:$logbackClassic")
+
+    kapt(platform("io.micronaut:micronaut-bom:$micronaut"))
+    kapt("io.micronaut:micronaut-inject-java")
+    kapt("io.micronaut:micronaut-validation")
+    kaptTest(platform("io.micronaut:micronaut-bom:$micronaut"))
+    kaptTest("io.micronaut:micronaut-inject-java")
+
+    /* Configuring Native File Watch on Mac OS X */
+    developmentOnly("io.micronaut:micronaut-runtime-osx")
+    developmentOnly("net.java.dev.jna:jna:$jna")
+    developmentOnly("io.methvin:directory-watcher:$directoryWatcher")
+
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronaut"))
+    testImplementation("io.micronaut.test:micronaut-test-kotlintest:$kotlintest")
+    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
+
+    implementation("org.jetbrains.exposed:exposed:0.17.7")
+    implementation("com.h2database:h2:1.4.200")
 }
 
 defaultTasks("clean", "ktlintFormat", "dependencyUpdates", "test")

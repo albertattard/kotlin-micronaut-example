@@ -1,4 +1,4 @@
-package com.albertattard.example.weather
+package com.albertattard.example.micronaut.weather
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
@@ -20,7 +20,8 @@ class WeatherControllerTest(
     "test weather" {
         val mock = getMock(service)
 
-        val forecast = Forecast("Sunny Mirconaut Framework")
+        val forecast =
+            Forecast("Sunny Mirconaut Framework")
         every { mock.latestForecast() } returns forecast
 
         val result = client.toBlocking().retrieve("/forecast", Forecast::class.java)
