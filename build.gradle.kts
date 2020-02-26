@@ -9,7 +9,7 @@ plugins {
 
     id("com.github.johnrengelman.shadow").version("5.2.0")
     id("org.jlleitschuh.gradle.ktlint").version("9.2.1")
-    id("com.github.ben-manes.versions").version("0.27.0")
+    id("com.github.ben-manes.versions").version("0.28.0")
 }
 
 repositories {
@@ -58,12 +58,17 @@ allOpen {
 }
 
 dependencies {
-    val micronaut = "1.3.1"
+    val kotlin = "1.3.61"
+    val micronaut = "1.3.2"
     val jna = "5.5.0"
     val directoryWatcher = "0.9.9"
-    val kotlintest = "1.1.5"
     val jacksonModuleKotlin = "2.10.2"
     val logbackClassic = "1.2.3"
+    val mockk = "1.9.3"
+    val kotlintest = "1.1.5"
+    val kotlintestRunner = "3.4.0"
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin")
 
     implementation(platform("io.micronaut:micronaut-bom:$micronaut"))
     implementation("io.micronaut:micronaut-http-server-netty")
@@ -85,8 +90,8 @@ dependencies {
 
     testImplementation(platform("io.micronaut:micronaut-bom:$micronaut"))
     testImplementation("io.micronaut.test:micronaut-test-kotlintest:$kotlintest")
-    testImplementation("io.mockk:mockk:1.9.3")
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
+    testImplementation("io.mockk:mockk:$mockk")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:$kotlintestRunner")
 
     implementation("org.jetbrains.exposed:exposed:0.17.7")
     implementation("com.h2database:h2:1.4.200")
